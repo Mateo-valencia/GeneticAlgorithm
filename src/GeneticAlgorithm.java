@@ -101,21 +101,21 @@ public class GeneticAlgorithm {
 
     private void crossAndMutate() {
         for (int i = 0; i < MAX_POBLATION; i++) {
-            int splitAtIndex = random.nextInt(TEAM_MATE.length());
-            String nextString = crossStrings(i, splitAtIndex);
-            nextString = mutateString(splitAtIndex, nextString);
+            String nextString = crossStrings(i);
+            nextString = mutateString(nextString);
             this.poblation.set(i, nextString);
         }
     }
 
-    private String crossStrings(int i, int splitAtIndex) {
+    private String crossStrings(int i) {
+        int splitAtIndex = random.nextInt(TEAM_MATE.length());
         if (i <= MAX_POBLATION / 2) {
             return firstString.substring(0, splitAtIndex) + secondString.substring(splitAtIndex, TEAM_MATE.length());
         }
         return secondString.substring(0, splitAtIndex) + firstString.substring(splitAtIndex, TEAM_MATE.length());
     }
 
-    private String mutateString(int splitAtIndex, String string) {
+    private String mutateString(String string) {
         if (random.nextInt(101) <= MUTATION_PORCENT_PROHABILITY) {
             int mutateAtIndex = random.nextInt(TEAM_MATE.length());
             StringBuilder stringBuilder = new StringBuilder(string);
